@@ -7,7 +7,7 @@ COPY . .
 RUN apt-get install maven -y
 RUN mvn clean install
 
-FROM FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 
 EXPOSE 8080
 
