@@ -5,7 +5,8 @@ RUN apt-get install openjdk-17-jdk -y
 COPY . .
 
 RUN apt-get install maven -y
-RUN mvn clean package
+RUN chmod +x mvn
+RUN mvn clean install -U
 
 FROM eclipse-temurin:17-jre-alpine
 
