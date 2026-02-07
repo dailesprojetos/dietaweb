@@ -1,17 +1,7 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+FROM maven:3.8.3-openjdk-17 AS build
 COPY . .
-
-RUN apt-get install maven -y
-RUN chmod +x mvn
-RUN mvn clean install -U
-
-FROM eclipse-temurin:17-jre-alpine
-
-EXPOSE 8080
-
+RUN mvn clean package -Pprod -DskipTests
+FROM eclipse-temurin:17-alpine
 COPY --from=build /target/dietaweb-0.0.1-SNAPSHOT.jar app.jar
-
+EXPOSE 8080
 ENTRYPOINT [ "java", "-jar", "app.jar"]
